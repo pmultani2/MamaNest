@@ -1,0 +1,5 @@
+<li id="patient-{{ patient._id }}">
+  {{ patient.Name }} ({{ patient.HealthCardNumber }})
+  <button hx-get="/patients/{{ patient._id }}" hx-target="#patient-details" hx-swap="innerHTML">View</button>
+  <button hx-delete="/patients/{{ patient._id }}" hx-target="#patient-{{ patient._id }}" hx-swap="outerHTML">Delete</button>
+</li>

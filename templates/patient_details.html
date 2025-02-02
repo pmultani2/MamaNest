@@ -1,0 +1,36 @@
+<div id="patient-details">
+  <h2>{{ patient.Name }}</h2>
+  <p>Health Card: {{ patient.HealthCardNumber }}</p>
+  <p>Date of Birth: {{ patient.DateOfBirth }}</p>
+
+  <h3>Heart Rates</h3>
+  <ul>
+      {% for hr in patient.HeartRates %}
+          <li>{{ hr.HeartRate }} ({{ hr.DateObserved }})</li>
+      {% endfor %}
+  </ul>
+
+  <h3>Add Heart Rate</h3>
+  <form hx-post="/patients/{{ patient._id }}/heart_rate" hx-target="#patient-details" hx-swap="outerHTML">
+      <input type="text" name="HeartRate" placeholder="Heart Rate (e.g. 60 bps)" required>
+      <label for="DateObserved">Date Observed:</label>
+      <input type="date" name="DateObserved" required>
+      <button type="submit">Add</button>
+  </form>
+
+  <h3>Medications</h3>
+  <ul>
+      {% for med in patient.Medications %}
+          <li>{{ med.Name }} - {{ med.Dosage }} ({{ med.Schedule }}) - {{ med.Notes }}</li>
+      {% endfor %}
+  </ul>
+
+  <h3>Add Medication</h3>
+  <form hx-post="/patients/{{ patient._id }}/medications" hx-target="#patient-details" hx-swap="outerHTML">
+      <input type="text" name="Name" placeholder="Medication Name" required>
+      <input type="text" name="Dosage" placeholder="Dosage" required>
+      <input type="text" name="Schedule" placeholder="Schedule" required>
+      <input type="text" name="Notes" placeholder="Notes">
+      <button type="submit">Add</button>
+  </form>
+</div>

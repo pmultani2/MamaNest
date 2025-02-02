@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Management</title>
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Patient Management System</h1>
+
+    <!-- Add Patient Form -->
+    <form hx-post="/patients" hx-target="#patients-list" hx-swap="beforeend">
+        <input type="text" name="Name" placeholder="Name" required>
+        <input type="text" name="HealthCardNumber" placeholder="Health Card Number" required>
+        <input type="date" name="DateOfBirth" required>
+        <button type="submit">Add Patient</button>
+    </form>
+
+    <h2>Patients List</h2>
+    <ul id="patients-list">
+        {% for patient in patients %}
+            {% include 'patient_item.html' %}
+        {% endfor %}
+    </ul>
+    
+    <!-- This div will be updated dynamically -->
+    <div id="patient-details"></div>    
+</body>
+</html>
